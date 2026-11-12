@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kuro Studio</title>
+<style>
+:root{--bg:#fff;--ink:#121212;--mut:#5e5e5e;--line:#e3e3e3;--soft:#f3f3f3;--red:#d4202b;--red-ink:#fff;--card:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121212;--ink:#f2f2f2;--mut:#a8a8a8;--line:#2c2c2c;--soft:#1e1e1e;--card:#121212}}
+:root[data-theme="dark"]{--bg:#121212;--ink:#f2f2f2;--mut:#a8a8a8;--line:#2c2c2c;--soft:#1e1e1e;--card:#121212}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Assistant,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6}
+a{color:inherit;text-decoration:none;cursor:pointer}button{font:inherit;color:inherit;cursor:pointer}
+.w{max-width:1200px;margin:0 auto;padding:0 20px}
+.ann{background:var(--red);color:var(--red-ink);text-align:center;font-size:13px;padding:8px 12px}
+header{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:12px}
+.logo{font-size:22px;font-weight:700;letter-spacing:.12em}
+.logo i{color:var(--red);font-style:normal}
+.menu{display:flex;gap:26px;font-size:15px}
+.menu a{padding:4px 0;border-bottom:1px solid transparent}.menu a:hover,.menu a.on{border-color:var(--ink)}
+.ic{display:flex;gap:4px}
+.ib{background:none;border:0;height:44px;min-width:44px;font-size:14px;position:relative}
+.ib:hover{color:var(--red)}
+.bub{position:absolute;top:4px;right:2px;background:var(--red);color:#fff;font-size:11px;min-width:18px;height:18px;border-radius:9px;display:grid;place-items:center}
+.burger{display:none}
+.hero{position:relative;background:var(--soft);min-height:460px;display:grid;place-items:center;text-align:center;overflow:hidden}
+.hero svg{position:absolute;right:6%;bottom:-40px;width:340px;opacity:.9}
+.hero .in{position:relative;padding:60px 20px;max-width:520px;margin-right:auto;margin-left:8%;text-align:left}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font-size:clamp(34px,5vw,56px);line-height:1.08;margin:10px 0 14px;font-weight:600}
+h2{font-size:clamp(24px,3vw,32px);font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 30px;border:1px solid var(--ink);background:var(--bg);color:var(--ink);font-size:15px;transition:.15s}
+.btn:hover{box-shadow:0 0 0 2px var(--ink)}
+.btn.red{background:var(--red);border-color:var(--red);color:#fff}.btn.red:hover{box-shadow:0 0 0 2px var(--red)}
+.btn.full{width:100%}.btn[disabled]{opacity:.5;pointer-events:none}
+section{padding:56px 0}
+.sh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px}
+.sh a{font-size:14px;text-decoration:underline;text-underline-offset:3px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.col .im{aspect-ratio:4/3}.col h3{font-size:17px;margin-top:10px;font-weight:600}.col:hover h3{text-decoration:underline}
+.im{background:var(--soft);display:grid;place-items:center;position:relative;overflow:hidden}
+.im svg{width:62%;transition:transform .35s}
+.card:hover .im svg,.col:hover .im svg{transform:scale(1.06)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px 18px}
+.card .im{aspect-ratio:1/1.1}
+.card h3{font-size:15px;font-weight:400;margin-top:10px}.card:hover h3{text-decoration:underline}
+.pr{font-size:15px;color:var(--mut)}
+.bd{position:absolute;left:8px;bottom:8px;background:var(--red);color:#fff;font-size:12px;padding:2px 10px;border-radius:14px}
+.bd.so{background:var(--ink);color:var(--bg)}
+.qa{position:absolute;left:10px;right:10px;bottom:10px;opacity:0;transition:.2s;min-height:40px;font-size:14px}
+.card:hover .qa{opacity:1}
+.banner{background:var(--red);color:#fff;text-align:center;padding:64px 20px}
+.banner p{margin:8px 0 22px;opacity:.9}.banner .btn{background:#fff;color:var(--red);border-color:#fff}
+.feat{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;border-block:1px solid var(--line);padding:36px 0}
+.feat b{display:block}.feat span{font-size:14px;color:var(--mut)}
+.bc{font-size:13px;color:var(--mut);padding:20px 0}.bc a:hover{text-decoration:underline}
+.tools{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:16px 0 28px}
+.chip{border:1px solid var(--line);background:none;padding:7px 16px;border-radius:20px;font-size:14px}
+.chip.on,.chip:hover{border-color:var(--ink)}.chip.on{background:var(--ink);color:var(--bg)}
+select,input,textarea{font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);padding:11px 12px;width:100%}
+select{width:auto}
+.pd{display:grid;grid-template-columns:1.1fr 1fr;gap:48px}
+.pd .im{aspect-ratio:1/1.05}.pd .im svg{width:66%}
+.pd h2{font-size:32px}.pd .pr{font-size:20px;color:var(--ink);margin:6px 0 18px}
+.lbl{font-size:13px;color:var(--mut);margin:18px 0 8px}
+.sz{display:flex;gap:8px;flex-wrap:wrap}
+.q{display:inline-flex;border:1px solid var(--line)}.q button{width:42px;height:44px;background:none;border:0;font-size:18px}.q span{width:42px;display:grid;place-items:center}
+.stack{display:grid;gap:10px;margin-top:20px}
+.desc{margin-top:24px;color:var(--mut);font-size:15px;border-top:1px solid var(--line);padding-top:18px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:40;opacity:0;pointer-events:none;transition:.25s}.ov.on{opacity:1;pointer-events:auto}
+.dr{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--bg);z-index:50;transform:translateX(100%);transition:.3s;display:flex;flex-direction:column;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}.dr.on{transform:none}
+.dr.l{right:auto;left:0;transform:translateX(-100%)}.dr.l.on{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line)}
+.db{flex:1;overflow:auto;padding:8px 20px}.df{padding:18px 20px;border-top:1px solid var(--line)}
+.li{display:grid;grid-template-columns:72px 1fr auto;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);align-items:center}
+.li .im{aspect-ratio:1}.li .im svg{width:80%}.li small{color:var(--mut)}
+.li .q button{height:32px;width:32px}.li .q span{width:30px;font-size:14px}
+.rm{background:none;border:0;font-size:12px;text-decoration:underline;color:var(--mut)}
+.tot{display:flex;justify-content:space-between;font-size:18px;font-weight:600;margin-bottom:12px}
+.empty{text-align:center;padding:50px 0;color:var(--mut)}
+.md{position:fixed;left:50%;top:50%;transform:translate(-50%,-46%);width:min(460px,92%);max-height:88vh;overflow:auto;background:var(--bg);z-index:60;padding:26px;opacity:0;pointer-events:none;transition:.25s}.md.on{opacity:1;pointer-events:auto;transform:translate(-50%,-50%)}
+.md label{display:block;font-size:13px;color:var(--mut);margin:12px 0 4px}
+.sr{position:fixed;left:0;right:0;top:0;z-index:55;background:var(--bg);padding:20px;transform:translateY(-110%);transition:.3s;border-bottom:1px solid var(--line)}.sr.on{transform:none}
+.sr .res{max-width:700px;margin:12px auto 0;max-height:60vh;overflow:auto}
+.sr .li{grid-template-columns:56px 1fr auto;cursor:pointer}
+.sr input{max-width:700px;display:block;margin:0 auto;font-size:18px}
+footer{background:var(--soft);padding:48px 0 28px;margin-top:40px}
+.fg{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:32px;font-size:14px}
+.fg h4{margin-bottom:10px;font-size:15px}.fg a{display:block;padding:3px 0;color:var(--mut)}.fg a:hover{color:var(--red)}
+.nl{display:flex;margin-top:12px}.nl input{border-right:0}.nl .btn{padding:0 22px}
+.copy{margin-top:28px;font-size:12px;color:var(--mut);border-top:1px solid var(--line);padding-top:16px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140px);background:var(--ink);color:var(--bg);padding:12px 20px;z-index:70;transition:.3s;font-size:14px}.toast.on{transform:translate(-50%,0)}
+.pg{max-width:680px;padding:20px 0 40px}.pg p{margin:14px 0;color:var(--mut)}
+@media (max-width:900px){.menu{display:none}.burger{display:block}.grid{grid-template-columns:repeat(2,1fr)}.cols{grid-template-columns:1fr}.pd{grid-template-columns:1fr;gap:24px}.feat{grid-template-columns:repeat(2,1fr)}.fg{grid-template-columns:1fr}.hero svg{width:220px;right:-20px;opacity:.35}.hero .in{margin:0 auto}.qa{opacity:1;position:static;margin-top:8px;width:100%}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="t" viewBox="0 0 200 200"><path d="M70 22 20 52l16 38 20-8v94h88V82l20 8 16-38-50-30c-4 12-16 20-30 20S74 34 70 22z" fill="currentColor"/></symbol></svg>
+
+<div class="ann">Free delivery on orders over ৳2000 · Cash on delivery available</div>
+<header><div class="w nav">
+<button class="ib burger" id="bg" aria-label="Menu">☰ Menu</button>
+<a class="logo" href="#home">KURO<i>.</i>STUDIO</a>
+<nav class="menu" id="mn"><a href="#home" data-n="home">Home</a><a href="#collection-all" data-n="collection-all">Shop</a><a href="#collection-essentials" data-n="collection-essentials">Essentials</a><a href="#collection-monochrome" data-n="collection-monochrome">Monochrome</a><a href="#collection-graphic" data-n="collection-graphic">Graphic</a><a href="#page-about" data-n="page-about">About</a></nav>
+<div class="ic"><button class="ib" id="th" aria-label="Theme">◐</button><button class="ib" id="sb">Search</button><button class="ib" id="cb">Cart<span class="bub" id="cn">0</span></button></div>
+</div></header>
+
+<main id="app"></main>
+
+<footer><div class="w">
+<div class="fg">
+<div><h4>Join our list</h4><p style="color:var(--mut)">New drops and offers, straight to your inbox.</p><form class="nl" id="nf"><input type="email" required placeholder="Email address"><button class="btn red">Subscribe</button></form></div>
+<div><h4>Shop</h4><a href="#collection-all">All products</a><a href="#collection-essentials">Essentials</a><a href="#collection-monochrome">Monochrome</a><a href="#collection-graphic">Graphic series</a></div>
+<div><h4>Info</h4><a href="#page-about">About us</a><a href="#page-shipping">Shipping policy</a><a href="#page-returns">Returns &amp; exchange</a><a href="#page-contact">Contact</a></div>
+</div>
+<p class="copy">© 2026 Kuro Studio · Design concept. Demo store, no real orders.</p>
+</div></footer>
+
+<div class="ov" id="ov"></div>
+<aside class="dr" id="cd"><div class="dh"><b>Your cart</b><button class="ib" data-x>Close ✕</button></div><div class="db" id="cl"></div><div class="df" id="cf"></div></aside>
+<aside class="dr l" id="md2"><div class="dh"><b>Menu</b><button class="ib" data-x>Close ✕</button></div><div class="db" id="ml"></div></aside>
+<div class="sr" id="sr"><input id="si" placeholder="Search products…" autocomplete="off"><div class="res" id="sres"></div><div style="text-align:center;margin-top:12px"><button class="rm" data-x>Close search</button></div></div>
+<div class="md" id="ck"></div>
+<div class="toast" id="ts"></div>
+
+<script>
+var P=[
+{id:1,n:"Oversized Graphic Tee",c:"graphic",p:920,col:"#121212",tag:"New"},
+{id:2,n:"Classic Drop-Shoulder",c:"essentials",p:850,col:"#d4202b"},
+{id:3,n:"Monochrome Tee",c:"monochrome",p:870,col:"#e8e8e8",tag:"Best seller"},
+{id:4,n:"Minimal Logo Tee",c:"essentials",p:820,col:"#2b3a55"},
+{id:5,n:"Street Print Tee",c:"graphic",p:900,col:"#121212",tag:"New"},
+{id:6,n:"Essential Plain Tee",c:"essentials",p:570,col:"#8a8a8a"},
+{id:7,n:"Washed Black Tee",c:"monochrome",p:870,col:"#1c1c1c"},
+{id:8,n:"Signature Tee",c:"graphic",p:890,col:"#d4202b",tag:"Sold out",so:1},
+{id:9,n:"Heavy Cotton Tee",c:"essentials",p:790,col:"#f2f2f2"},
+{id:10,n:"Stone Wash Tee",c:"monochrome",p:860,col:"#b9b6ae"},
+{id:11,n:"Block Print Tee",c:"graphic",p:880,col:"#f2f2f2"},
+{id:12,n:"Everyday Crew Tee",c:"essentials",p:650,col:"#3a3a3a"}];
+var CN={all:"All products",essentials:"Essentials",monochrome:"Monochrome",graphic:"Graphic series"};
+var SZ=["S","M","L","XL","XXL"];
+var cart=[];try{cart=JSON.parse(localStorage.getItem("kc")||"[]")}catch(e){}
+function sv(){try{localStorage.setItem("kc",JSON.stringify(cart))}catch(e){}}
+function $(i){return document.getElementById(i)}
+function tee(c){return '<svg viewBox="0 0 200 200" style="color:'+c+';filter:drop-shadow(0 2px 0 rgba(0,0,0,.08))"><use href="#t"/></svg>'}
+function by(id){return P.filter(function(x){return x.id==id})[0]}
+function tk(m){var t=$("ts");t.textContent=m;t.classList.add("on");clearTimeout(tk.h);tk.h=setTimeout(function(){t.classList.remove("on")},1600)}
+function card(p){return '<div class="card"><a href="#product-'+p.id+'"><div class="im">'+(p.tag?'<span class="bd'+(p.so?' so':'')+'">'+p.tag+'</span>':'')+tee(p.col)+'</div><h3>'+p.n+'</h3><div class="pr">৳'+p.p+'</div></a>'+(p.so?'':'<button class="btn qa" data-add="'+p.id+'">Quick add</button>')+'</div>'}
+function home(){
+var f=P.slice(0,8).map(card).join("");
+var cs=["essentials","monochrome","graphic"].map(function(k,i){return '<a class="col" href="#collection-'+k+'"><div class="im">'+tee(["#121212","#b9b6ae","#d4202b"][i])+'</div><h3>'+CN[k]+' →</h3></a>'}).join("");
+return '<div class="hero"><div class="in"><div class="eyebrow">New season · Drop 04</div><h1>Everyday tees, made to be worn loud.</h1><p style="color:var(--mut);margin-bottom:24px">Heavyweight cotton, relaxed drop-shoulder fit, graphics that stand out.</p><a class="btn red" href="#collection-all">Shop all</a></div>'+tee("#d4202b")+'</div>'+
+'<section><div class="w"><div class="sh"><h2>Shop by collection</h2><a href="#collection-all">View all</a></div><div class="cols">'+cs+'</div></div></section>'+
+'<section style="padding-top:0"><div class="w"><div class="sh"><h2>Featured products</h2><a href="#collection-all">View all</a></div><div class="grid">'+f+'</div><div style="text-align:center;margin-top:36px"><a class="btn" href="#collection-all">View all products</a></div></div></section>'+
+'<div class="banner"><h2>Buy 3, save 15%</h2><p>Mix and match any tees. Discount applied automatically in your cart.</p><a class="btn" href="#collection-all">Build your bundle</a></div>'+
+'<section><div class="w"><div class="feat"><div><b>Fast delivery</b><span>Dhaka in 48 hours</span></div><div><b>Cash on delivery</b><span>Pay when you receive</span></div><div><b>Easy exchange</b><span>7-day size exchange</span></div><div><b>Premium fabric</b><span>240 GSM combed cotton</span></div></div></div></section>'}
+var fk="all",so="feat";
+function coll(k){fk=k;var l=P.filter(function(x){return k=="all"||x.c==k});
+if(so=="lo")l.sort(function(a,b){return a.p-b.p});if(so=="hi")l.sort(function(a,b){return b.p-a.p});if(so=="az")l.sort(function(a,b){return a.n<b.n?-1:1});
+var ch=["all","essentials","monochrome","graphic"].map(function(x){return '<a class="chip'+(x==k?' on':'')+'" href="#collection-'+x+'">'+CN[x]+'</a>'}).join("");
+return '<div class="w"><div class="bc"><a href="#home">Home</a> / '+CN[k]+'</div><h2>'+CN[k]+'</h2><div class="tools">'+ch+'<span style="flex:1"></span><span style="font-size:14px;color:var(--mut)">'+l.length+' products</span><select id="so"><option value="feat">Featured</option><option value="lo">Price: low to high</option><option value="hi">Price: high to low</option><option value="az">A–Z</option></select></div><div class="grid">'+l.map(card).join("")+'</div></div>'}
+var sel={s:"M",q:1};
+function prod(id){var p=by(id);if(!p)return '<div class="w pg"><h2>Not found</h2><a class="btn" href="#home">Back home</a></div>';
+sel={s:"M",q:1};
+var rel=P.filter(function(x){return x.c==p.c&&x.id!=p.id}).slice(0,4).map(card).join("");
+return '<div class="w"><div class="bc"><a href="#home">Home</a> / <a href="#collection-'+p.c+'">'+CN[p.c]+'</a> / '+p.n+'</div><div class="pd"><div class="im">'+(p.tag?'<span class="bd'+(p.so?' so':'')+'">'+p.tag+'</span>':'')+tee(p.col)+'</div><div><h2>'+p.n+'</h2><div class="pr">৳'+p.p+'</div><div class="lbl">Size</div><div class="sz" id="szs">'+SZ.map(function(s){return '<button class="chip'+(s=="M"?' on':'')+'" data-sz="'+s+'">'+s+'</button>'}).join("")+'</div><div class="lbl">Quantity</div><div class="q"><button data-pq="-1">−</button><span id="pq">1</span><button data-pq="1">+</button></div><div class="stack">'+(p.so?'<button class="btn full" disabled>Sold out</button>':'<button class="btn full" data-addp="'+p.id+'">Add to cart</button><button class="btn red full" data-buy="'+p.id+'">Buy it now</button>')+'</div><div class="desc"><p>Relaxed drop-shoulder fit in pre-shrunk 240 GSM combed cotton. Soft hand-feel, durable print, ribbed neckline.</p><p style="margin-top:10px">Model is 5\'10" and wears size M. Machine wash cold, inside out.</p></div></div></div>'+(rel?'<section><div class="sh"><h2>You may also like</h2></div><div class="grid">'+rel+'</div></section>':'')+'</div>'}
+var PG={about:["About us","Kuro Studio is a design concept for a modern streetwear label. Everything here is placeholder content."],shipping:["Shipping policy","Dhaka orders arrive in 48 hours. Rest of the country in 3–5 days. Free delivery on orders over ৳2000."],returns:["Returns & exchange","Not the right size? Exchange within 7 days of delivery, as long as the item is unworn with tags attached."],contact:["Contact","Email hello@example.com or call +880 1XXX-XXXXXX. Placeholder details for the demo."]};
+function page(k){var d=PG[k]||PG.about;return '<div class="w pg"><div class="bc"><a href="#home">Home</a> / '+d[0]+'</div><h2>'+d[0]+'</h2><p>'+d[1]+'</p><a class="btn red" href="#collection-all">Continue shopping</a></div>'}
+function route(){var h=(location.hash||"#home").slice(1),a=h.split("-"),v=a[0],r=a.slice(1).join("-");
+var m=$("app");
+if(v=="collection")m.innerHTML=coll(CN[r]?r:"all");else if(v=="product")m.innerHTML=prod(r);else if(v=="page")m.innerHTML=page(r);else m.innerHTML=home();
+var s=$("so");if(s){s.value=so;s.onchange=function(){so=s.value;route()}}
+document.querySelectorAll("#mn a").forEach(function(x){x.classList.toggle("on",x.dataset.n==h)});
+closeAll();scrollTo(0,0)}
+function add(id,s,q){var k=cart.filter(function(x){return x.id==id&&x.s==s})[0];if(k)k.q+=q;else cart.push({id:id,s:s,q:q});sv();upd()}
+function sub(){return cart.reduce(function(t,x){return t+by(x.id).p*x.q},0)}
+function upd(){$("cn").textContent=cart.reduce(function(t,x){return t+x.q},0);
+$("cl").innerHTML=cart.length?cart.map(function(x,i){var p=by(x.id);return '<div class="li"><a class="im" href="#product-'+p.id+'">'+tee(p.col)+'</a><div><a href="#product-'+p.id+'">'+p.n+'</a><br><small>Size '+x.s+' · ৳'+p.p+'</small><br><div class="q" style="margin-top:6px"><button data-ci="'+i+'" data-d="-1">−</button><span>'+x.q+'</span><button data-ci="'+i+'" data-d="1">+</button></div></div><div style="text-align:right"><b>৳'+p.p*x.q+'</b><br><button class="rm" data-rm="'+i+'">Remove</button></div></div>'}).join(""):'<div class="empty"><p>Your cart is empty</p><br><a class="btn" href="#collection-all">Continue shopping</a></div>';
+var s=sub(),d=cart.reduce(function(t,x){return t+x.q},0)>=3?Math.round(s*.15):0,sh=(s-d)>=2000||!s?0:80;
+$("cf").innerHTML=cart.length?(d?'<div class="tot" style="font-size:14px;color:var(--red);font-weight:400"><span>Bundle discount (15%)</span><span>−৳'+d+'</span></div>':'')+'<div class="tot" style="font-size:14px;font-weight:400"><span>Delivery</span><span>'+(sh?'৳'+sh:'Free')+'</span></div><div class="tot"><span>Total</span><span>৳'+(s-d+sh)+'</span></div><button class="btn red full" id="co">Check out</button>':"";
+upd.t=s-d+sh}
+function closeAll(){["cd","md2","sr","ck"].forEach(function(i){$(i).classList.remove("on")});$("ov").classList.remove("on")}
+function open(i){closeAll();$(i).classList.add("on");if(i!="sr"||1)$("ov").classList.add("on")}
+function srch(){var q=$("si").value.toLowerCase().trim();var l=q?P.filter(function(x){return (x.n+x.c).toLowerCase().indexOf(q)>-1}):P.slice(0,4);
+$("sres").innerHTML=l.length?l.map(function(p){return '<div class="li" data-go="'+p.id+'"><div class="im">'+tee(p.col)+'</div><div>'+p.n+'<br><small>'+CN[p.c]+'</small></div><b>৳'+p.p+'</b></div>'}).join(""):'<div class="empty">No results for "'+q.replace(/</g,"")+'"</div>'}
+document.addEventListener("click",function(e){var t=e.target,g=function(a){var n=t.closest("["+a+"]");return n?n.getAttribute(a):null};
+var a;
+if((a=g("data-add"))){add(+a,"M",1);tk("Added to cart · size M");open("cd");return}
+if((a=g("data-sz"))!==null){sel.s=a;document.querySelectorAll("#szs .chip").forEach(function(c){c.classList.toggle("on",c.dataset.sz==a)});return}
+if((a=g("data-pq"))){sel.q=Math.max(1,sel.q+ +a);$("pq").textContent=sel.q;return}
+if((a=g("data-addp"))){add(+a,sel.s,sel.q);tk("Added to cart");open("cd");return}
+if((a=g("data-buy"))){add(+a,sel.s,sel.q);checkout();return}
+if(g("data-ci")!==null){var i=+g("data-ci");cart[i].q+=+g("data-d");if(cart[i].q<1)cart.splice(i,1);sv();upd();return}
+if((a=g("data-rm"))){cart.splice(+a,1);sv();upd();return}
+if((a=g("data-go"))){location.hash="product-"+a;return}
+if(t.closest("#co")){checkout();return}
+if(t.closest("[data-x]")||t.id=="ov"){closeAll();return}
+if(t.closest("#cb")){open("cd");return}
+if(t.closest("#sb")){open("sr");$("si").value="";srch();setTimeout(function(){$("si").focus()},200);return}
+if(t.closest("#bg")){open("md2");return}
+if(t.closest("#th")){var r=document.documentElement,d=getComputedStyle(r).getPropertyValue("--bg").trim()=="#121212";r.setAttribute("data-theme",d?"light":"dark");return}
+if(t.closest("#ml a"))closeAll()});
+function checkout(){if(!cart.length)return;closeAll();$("ov").classList.add("on");$("ck").classList.add("on");
+$("ck").innerHTML='<h2 style="font-size:22px">Checkout</h2><p style="color:var(--mut);font-size:14px">Total ৳'+upd.t+' · Cash on delivery (demo)</p><form id="cf2"><label>Full name</label><input required><label>Phone</label><input required type="tel"><label>Delivery address</label><textarea rows="3" required></textarea><button class="btn red full" style="margin-top:18px">Place order</button><button type="button" class="btn full" data-x style="margin-top:10px">Cancel</button></form>'}
+document.addEventListener("submit",function(e){e.preventDefault();
+if(e.target.id=="cf2"){cart=[];sv();upd();$("ck").innerHTML='<div style="text-align:center;padding:20px 0"><div style="font-size:44px;color:var(--red)">✓</div><h2 style="font-size:22px">Order placed!</h2><p style="color:var(--mut);margin:10px 0 20px">This is a demo store, so no real order was created.</p><a class="btn red" href="#home" data-x>Back to home</a></div>'}
+if(e.target.id=="nf"){e.target.reset();tk("Thanks for subscribing!")}});
+$("si").addEventListener("input",srch);
+document.addEventListener("keydown",function(e){if(e.key=="Escape")closeAll()});
+$("ml").innerHTML='<a href="#home" style="display:block;padding:12px 0">Home</a><a href="#collection-all" style="display:block;padding:12px 0">Shop all</a><a href="#collection-essentials" style="display:block;padding:12px 0">Essentials</a><a href="#collection-monochrome" style="display:block;padding:12px 0">Monochrome</a><a href="#collection-graphic" style="display:block;padding:12px 0">Graphic series</a><a href="#page-about" style="display:block;padding:12px 0">About</a><a href="#page-contact" style="display:block;padding:12px 0">Contact</a>';
+window.addEventListener("hashchange",route);upd();route();
+</script>
+</body>
+</html>
